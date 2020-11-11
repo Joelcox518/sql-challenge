@@ -28,7 +28,7 @@ FROM
 WHERE 
 	hire_date>= '1986-01-01' AND hire_date <= '1986-12-31';
 
---NUMBER 3* joins
+--NUMBER 3
 
 
 SELECT
@@ -41,29 +41,33 @@ SELECT
 
 FROM
 	departments
-INNER JOIN dep_manager ON
-dep_manager.dept_no= departments.dept_no
+INNER JOIN dept_manager ON
+dept_manager.dept_no= departments.dept_no
 INNER JOIN employees ON
-employees.emp_no= dep_manager.emp_no;
+employees.emp_no= dept_manager.emp_no;
 
 
 
 
---NUMBER 4* how do I join with no common column?
+--NUMBER 4
 
 SELECT
 	employees.emp_no,
+	departments.dept_name,
 	employees.last_name,
-	employees.first_name,
-	departments.dept_name
+	employees.first_name
 	
-FROM
-	deptartments
-	
-INNER JOIN employees ON
-employees.emp_no=dept_emp.emp_no;
 
---Number 5 *NO RESULTS?
+FROM
+	departments
+INNER JOIN dept_emp ON
+dept_emp.dept_no= departments.dept_no
+INNER JOIN employees ON
+employees.emp_no= dept_emp.emp_no;
+
+
+
+--Number 5
 
 SELECT
 	first_name,
@@ -72,7 +76,7 @@ SELECT
 FROM
 	employees
 WHERE
-	first_name = 'Hercules' AND last_name LIKE 'b%';
+	first_name = 'Hercules' AND last_name LIKE 'B%';
 	
 --NUMBER 6
 
@@ -85,10 +89,10 @@ FROM
 	employees
 JOIN 
 	dept_emp
-ON (employees.emp_no = dept_emp.emp_no)
+ON employees.emp_no = dept_emp.emp_no
 JOIN
 	departments
-ON (departments.dept_no = dept_emp.dept_no)
+ON departments.dept_no = dept_emp.dept_no
 WHERE 
 departments.dept_name = 'Sales'
 ;
@@ -104,10 +108,10 @@ FROM
 	employees AS e
 JOIN 
 	dept_emp AS de
-ON (e.emp_no = de.emp_no)
+ON e.emp_no = de.emp_no
 JOIN 
 	departments AS d
-ON (d.dept_no = de.dept_no)
+ON d.dept_no = de.dept_no
 WHERE 
 	d.dept_name = 'Sales' OR d.dept_name = 'Development'
 ;
